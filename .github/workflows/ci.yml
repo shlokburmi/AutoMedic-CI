@@ -16,7 +16,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install pytest openai
+        run: pip install pytest groq
 
       - name: Run tests and capture output
         run: |
@@ -25,4 +25,5 @@ jobs:
       - name: Run AI Fix
         run: python fix_code.py
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          env:
+              GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
