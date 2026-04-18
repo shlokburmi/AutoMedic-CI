@@ -1,21 +1,25 @@
 import os
 from groq import Groq
 
+# initialize client
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 def get_fix(error_log, code):
     prompt = f"""
 You are a Python expert.
 
-Here is the current code:
+Fix the bug in this code.
+
+IMPORTANT RULES:
+- Return ONLY pure Python code
+- Do NOT use markdown (no ``` blocks)
+- Do NOT add explanation
+
+CODE:
 {code}
 
-Here is the failing test output:
+ERROR:
 {error_log}
-
-Fix ONLY the bug.
-Return ONLY corrected Python code.
-Do not add explanation.
 """
 
     response = client.chat.completions.create(
@@ -29,15 +33,37 @@ Do not add explanation.
 
 
 if __name__ == "__main__":
-    with open("result.txt", "r") as f:
-        error_log = f.read()
+    try:
+        # read error logs
+        with open("result.txt", "r") as f:
+            error_log = f.read()
 
-    with open("app/calculator.py", "r") as f:
-        code = f.read()
+        # read current code
+        with open("app/calculator.py", "r") as f:
+            code = f.read()
 
-    fixed_code = get_fix(error_log, code)
+        # get fix from AI
+        fixed_code = get_fix(error_log, code)
 
-    with open("app/calculator.py", "w") as f:
-        f.write(fixed_code)
+        print("🔍 RAW AI RESPONSE:\n", fixed_code)
 
-    print("✅ Code fixed by Groq AI")
+        # clean markdown if present
+        if "```" in fixed_code:
+            parts = fixed_code.split("```")
+            if len(parts) > 1:
+                fixed_code = parts[1]
+            if fixed_code.startswith("python"):
+                fixed_code = fixed_code.replace("python", "", 1)
+
+        fixed_code = fixed_code.strip()
+
+        print("✅ CLEANED CODE:\n", fixed_code)
+
+        # overwrite file
+        with open("app/calculator.py", "w") as f:
+            f.write(fixed_code)
+
+        print("🎯 Code successfully updated!")
+
+    except Exception as e:
+        print("❌ Error in AI fix:", e)
