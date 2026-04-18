@@ -16,8 +16,13 @@ jobs:
           python-version: '3.10'
 
       - name: Install dependencies
-        run: pip install pytest
+        run: pip install pytest openai
 
       - name: Run tests and capture output
         run: |
           pytest > result.txt || true
+
+      - name: Run AI Fix
+        run: python fix_code.py
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
