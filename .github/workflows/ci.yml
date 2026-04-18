@@ -57,4 +57,4 @@ jobs:
             🤖 Applied AI-generated fix  
             🔁 Ready for review  
 
-          branch: automedic-fix
+          branch: automedic-fix-${{ github.run_id }}
