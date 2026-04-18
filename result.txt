@@ -17,4 +17,4 @@ E   ModuleNotFoundError: No module named 'app'
 =========================== short test summary info ============================
 ERROR tests/test_calculator.py
 !!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-=============================== 1 error in 0.14s ===============================
+=============================== 1 error in 0.13s ===============================
