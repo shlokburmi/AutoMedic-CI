@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
         fixed_code = get_fix(error_log, code)
 
-        print("🔍 RAW AI RESPONSE:\n", fixed_code)
+        print("RAW AI RESPONSE:\n", fixed_code)
 
         # Clean markdown if present
         if "```" in fixed_code:
@@ -56,12 +56,12 @@ if __name__ == "__main__":
 
         fixed_code = fixed_code.strip()
 
-        print("✅ CLEANED CODE:\n", fixed_code)
+        print("CLEANED CODE:\n", fixed_code)
 
         with open("app/calculator.py", "w") as f:
             f.write(fixed_code)
 
-        print("🎯 Code successfully updated!")
+        print("Code updated successfully!")
 
     except Exception as e:
-        print("❌ Error:", e)
+        print("Error:", e)
