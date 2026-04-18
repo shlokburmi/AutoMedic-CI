@@ -2,19 +2,20 @@
 platform linux -- Python 3.10.20, pytest-9.0.3, pluggy-1.6.0
 rootdir: /home/runner/work/AutoMedic-CI/AutoMedic-CI
 plugins: anyio-4.13.0
-collected 0 items / 1 error
+collected 1 item
 
-==================================== ERRORS ====================================
-__________________ ERROR collecting tests/test_calculator.py ___________________
-ImportError while importing test module '/home/runner/work/AutoMedic-CI/AutoMedic-CI/tests/test_calculator.py'.
-Hint: make sure your test modules/packages have valid Python names.
-Traceback:
-/opt/hostedtoolcache/Python/3.10.20/x64/lib/python3.10/importlib/__init__.py:126: in import_module
-    return _bootstrap._gcd_import(name[level:], package, level)
-tests/test_calculator.py:1: in <module>
-    from app.calculator import add
-E   ModuleNotFoundError: No module named 'app'
+tests/test_calculator.py F                                               [100%]
+
+=================================== FAILURES ===================================
+___________________________________ test_add ___________________________________
+
+    def test_add():
+>       assert add(2, 3) == 5
+E       assert -1 == 5
+E        +  where -1 = add(2, 3)
+
+tests/test_calculator.py:10: AssertionError
 =========================== short test summary info ============================
-ERROR tests/test_calculator.py
-!!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
-=============================== 1 error in 0.14s ===============================
+FAILED tests/test_calculator.py::test_add - assert -1 == 5
+ +  where -1 = add(2, 3)
+============================== 1 failed in 0.03s ===============================
